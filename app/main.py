@@ -5,7 +5,7 @@ from flask import render_template, request
 from model import output
 import pandas as pd
 
-path = '/Users/shreyassk/Covid-app/metadata.csv'
+path = 'metadata.csv'
 df = pd.read_csv(path)
 
 df_new = df[['source_x','title','abstract','publish_time','authors','journal','url']]
