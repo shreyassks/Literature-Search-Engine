@@ -8,5 +8,5 @@ Werkzeug==0.14.1
 torch==1.6.0
 sentence-transformers==0.3.2
 google-cloud-logging
-logging
-argparse
+logging==0.4.9.6
+argparse==1.4.0
