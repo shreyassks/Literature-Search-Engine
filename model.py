@@ -5,7 +5,7 @@ import logging
 import argparse
 import pandas as pd
 
-path = '/Users/shreyassk/Covid-app/metadata.csv'
+path = 'metadata.csv'
 df = pd.read_csv(path)
 
 df_new = df[['source_x','title','abstract','publish_time','authors','journal','url']]
@@ -39,9 +39,9 @@ class Distilbert():
         return simi
 
     def distil_embeddings(self):
-        vector1 = torch.load('DistilBert Embeddings/distilbert_emb(1-50k).pt')
+        vector1 = torch.load('distilbert_emb(1-50k).pt')
         a = torch.from_numpy(vector1)
-        vector2 = torch.load('DistilBert Embeddings/distilbert_emb(50k-1.32l).pt')
+        vector2 = torch.load('distilbert_emb(50k-1.32l).pt')
         b = torch.from_numpy(vector2)
         c = torch.cat((a,b), 0)
         return c
