@@ -1,0 +1,1 @@
+class Configfile(object):    DEBUG = False    TESTING = False    class ProductionConfig(Configfile):    passclass DevelopmentConfig(Configfile):    DEBUG = True    class TestingConfig(Configfile):    TESTING = True

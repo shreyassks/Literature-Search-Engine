@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>Text Similarity</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            var dynamicVar = '{% if classifier %}{{ classifier }}{% else%}base{% endif %}';
+            $("#classifier").val(dynamicVar).attr("selected", "selected");
+        });
+     </script>
+</head>
+<body>
+    <h1 align="center">COVID Literature Search Engine</h1>
+    <div align="center">
+        <h3> Get the top 5 Similar papers </h3>         
+    </div><br>
+    <div class="container">
+        <form action="/result" method="post" >
+            <dl>
+                <dd>Enter your Text 1:<input type=text name="entry_1" 
+                                           value='{% if entry_1 %}{{ entry_1 }}{% endif %}'></dd><br>
+                <dd>Choose Model:
+                    <select name="model" id="embed" selected="selected">
+                        <option value="base">Please Select the Model</option>
+                        <option value="DISTILBERT">DistilBERT</option>
+                    </select>
+                </dd><br>
+                <dd><input type=submit value="Submit"></dd> 
+            </dl>
+        </form>
+    </div>
+    {% if exp %}
+        <h3 align="center"> {{ embed }}</h3>
+        <div class="container" align="center">
+            {{ exp|safe }}
+        </div>
+    {% endif %}
+</body>
+</html>
