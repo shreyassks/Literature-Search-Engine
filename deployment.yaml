@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: literature-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: literature-search
+  template:
+    metadata:
+      labels:
+        name: literature-search
+        app: literature-search
+    spec:
+      containers:
+        - name: gke-project
+          image: gcr.io/gke-flask-project/literature_engine
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
