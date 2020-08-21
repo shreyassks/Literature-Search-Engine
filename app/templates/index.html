@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Text Similarity</title>
+    <title>COVID Literature Search Engine</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
@@ -32,10 +32,13 @@
         </form>
     </div>
     {% if exp %}
-        <h3 align="center"> {{ embed }}</h3>
-        <div class="container" align="center">
-            {{ exp|safe }}
-        </div>
+    <h3 align="center"> {{ embed }}</h3>
+    {% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+    {% endfor %}
     {% endif %}
+       
+   
 </body>
 </html>
