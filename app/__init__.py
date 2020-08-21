@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
+import google.cloud.logging
+
+client = google.cloud.logging.Client()
+
+client.setup_logging()
 
 app = Flask(__name__)
 
