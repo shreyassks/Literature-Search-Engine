@@ -41,4 +41,6 @@ def index():
                            'color': 'lawngreen',
                            'border-color': 'white'})
             
-    return render_template('index.html', exp = exp, entry_1=text_1, embed=method)
+    return render_template('index.html', tables = [exp.to_html(classes='mystyle', index=False, border = 0)],
+                            titles = ['Authors', 'Journal', 'Publish_time', 'Title', 'Abstract', 'URL'], 
+                            entry_1=text_1, embed=method)
