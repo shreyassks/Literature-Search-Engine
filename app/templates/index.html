@@ -14,30 +14,31 @@
 <body>
     <h1 align="center">COVID Literature Search Engine</h1>
     <div align="center">
-        <h3> Get the top 5 Similar papers </h3>         
+        <h3> Get the Top 5 Research Papers matching the entered text below </h3>  
+        <h3> Details - Authors, Journal, Publish Date, Title, Abstract and Link to the Paper </h3>      
     </div><br>
     <div class="container">
         <form action="/result" method="post" >
             <dl>
-                <dd>Enter your Text 1:<input type=text name="entry_1" 
+                <dd>Enter your Text:<input type=text name="entry_1" 
                                            value='{% if entry_1 %}{{ entry_1 }}{% endif %}'></dd><br>
                 <dd>Choose Model:
                     <select name="model" id="embed" selected="selected">
                         <option value="base">Please Select the Model</option>
-                        <option value="DISTILBERT">DistilBERT</option>
+                        <option value="DISTILBERT">DistilBERT (pre-trained)</option>
                     </select>
                 </dd><br>
                 <dd><input type=submit value="Submit"></dd> 
             </dl>
         </form>
     </div>
-    {% if exp %}
-    <h3 align="center"> {{ embed }}</h3>
-    {% for table in tables %}
-            {{titles[loop.index]}}
-            {{ table|safe }}
-    {% endfor %}
-    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='df_style.css') }}">
+    <br>
+    <br>
+    {% block content %}
+    <h1>{{name}}</h1>
+    {{ data.to_html(classes="mystyle", index=False, border = 0) | safe}}
+    {% endblock %}
        
    
 </body>
