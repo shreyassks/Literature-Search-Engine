@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 22 15:05:40 2020
+
+@author: Shreyas S K
+"""
+
+/* includes alternating gray and white with on-hover color */
+
+.mystyle {
+    font-size: 11pt; 
+    font-family: Arial;
+    border-color: blue;
+    border-collapse: collapse; 
+    border: 0px solid black;
+    border-style: solid;
+
+}
+
+.mystyle td, th {
+    padding: 5px;
+}
+
+.mystyle tr:nth-child(even) {
+    background: #E0E0E0;
+}
+
+.mystyle tr:hover {
+    background: silver;
+    cursor: pointer;
+}
