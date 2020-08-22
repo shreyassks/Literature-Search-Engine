@@ -5,14 +5,12 @@ import logging
 import argparse
 import pandas as pd
 
-path = 'metadata.csv'
+path = r'C:\Users\Shreyas S K\Desktop\Literature-Search-Engine\metadata.csv'
 df = pd.read_csv(path)
 
-df_new = df[['source_x','title','abstract','publish_time','authors','journal','url']]
+df_new = df[['Authors', 'Journal', 'Publish_time', 'Title', 'Abstract', 'URL']]
 
 df_new.dropna(axis = 0, inplace=True)
-
-print(df_new.shape)
 
 METHODS = {
     
@@ -39,29 +37,28 @@ class Distilbert():
         return simi
 
     def distil_embeddings(self):
-        vector1 = torch.load('distilbert_emb(1-50k).pt')
-        a = torch.from_numpy(vector1)
-        vector2 = torch.load('distilbert_emb(50k-1.32l).pt')
+        vector1 = torch.load('distil(1-60k).pt')
+        vec = np.array(vector1)
+        a = torch.from_numpy(vec)
+        vector2 = torch.load('distil(60k-1.12l).pt')
         b = torch.from_numpy(vector2)
         c = torch.cat((a,b), 0)
-        return c
+        return a
 
     def top_similar_sentences(self, df, sentence):
 
-        try :
-            sent = self.model.encode(sentence)
-            embed = self.distil_embeddings()
-            sim = []
-            for j, batch in enumerate(embed):
-                similarity = self.cos_sim(sent, batch)
-                sim.append(similarity)
-            op = sorted(sim, reverse=True)
-            index = [sim.index(f) for f in op[:5]]
+        
+        sent = self.model.encode(sentence)
+        embed = self.distil_embeddings()
+        sim = []
+        for j, batch in enumerate(embed):
+            similarity = self.cos_sim(sent, batch)
+            sim.append(similarity)
+        op = sorted(sim, reverse=True)
+        index = [sim.index(f) for f in op[:5]]
+        dataframe = df.iloc[index]
 
-        except Exception as e:
-            print(e)
-
-        return df.iloc[index]
+        return dataframe
     
 def output(method: str, df, text):
     
@@ -77,7 +74,7 @@ def main(samples):
     method_list = [method for method in METHODS.keys()]
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', '--method', type=str, nargs='+', help="Enter one or more methods \
+    parser.add_argument('-m', '--method', type=str, help="Enter one or more methods \
                         (Choose from following: {})".format(", ".join(method_list)),
                         required=True)
     args = parser.parse_args()
@@ -91,7 +88,7 @@ def main(samples):
         text1 = samples[0]
         sim = output(method, df_new, text1)
             
-        print("Top 5 Papers are - ", sim)  
+        #print("Top 5 Papers are - ", sim)  
 
 if __name__ == "__main__":
     # Evaluation text
