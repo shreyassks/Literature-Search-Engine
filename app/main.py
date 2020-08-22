@@ -41,4 +41,4 @@ def index():
                            'color': 'lawngreen',
                            'border-color': 'white'})
             
-    return render_template('index.html', data = exp, entry_1=text_1, embed=method)
+    return render_template('index.html', exp = exp, entry_1=text_1, embed=method)
