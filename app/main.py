@@ -8,12 +8,18 @@ import pandas as pd
 path = 'metadata.csv'
 df = pd.read_csv(path)
 
-df_new = df[['source_x','title','abstract','publish_time','authors','journal','url']]
+df_new = df[['Authors', 'Journal', 'Publish_time', 'Title', 'Abstract', 'URL']]
 
 df_new.dropna(axis = 0, inplace=True)
 
-print(df_new.shape)
+pd.set_option('colheader_justify', 'center')
+pd.set_option('display.max_colwidth', -1)
 
+def make_clickable(val):
+    # target _blank to open new window
+    return '<a target="_blank" href="{}">{}</a>'.format(val, val)
+
+df_new.style.format({'url': make_clickable})
 
 @app.route('/')
 def main():
@@ -30,6 +36,9 @@ def index():
         
         if method != "base":
             exp = output(method, df_new, text_1)
-         
+            exp.style.format({'url': make_clickable})
+            exp.style.set_properties(**{'background-color': 'black',
+                           'color': 'lawngreen',
+                           'border-color': 'white'})
             
-    return render_template('index.html', exp=exp, entry_1=text_1, embed=method)
+    return render_template('index.html', data = exp, entry_1=text_1, embed=method)
