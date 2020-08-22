@@ -35,10 +35,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='df_style.css') }}">
     <br>
     <br>
-    {% block content %}
-    <h1>{{name}}</h1>
-    {{ data.to_html(classes="mystyle", index=False, border = 0) | safe}}
-    {% endblock %}
+    {% for table in tables %}
+     <h2> {{titles[loop.index]}} </h2>
+     {{table | safe}}
+    {% endfor %}
        
    
 </body>
